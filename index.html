@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MarkGallery - Локален Upload и Галерија</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  #gallery img { max-width: 150px; margin: 10px; }
+</style>
+</head>
+<body>
+<h1>MarkGallery - Локален Upload и Галерија</h1>
+
+<input type="file" id="upload" accept="image/*" multiple />
+<div id="gallery"></div>
+
+<script>
+  const upload = document.getElementById('upload');
+  const gallery = document.getElementById('gallery');
+
+  upload.addEventListener('change', (event) => {
+    gallery.innerHTML = '';
+    const files = event.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        gallery.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+</body>
+</html>
